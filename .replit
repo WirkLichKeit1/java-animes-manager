@@ -88,3 +88,12 @@ args = "mvn clean compile exec:java -Dexec.mainClass=\"Main\""
 
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow]]
+name = "cep"
+mode = "sequential"
+author = 48223061
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mvn clean compile exec:java -Dexec.mainClass=\"Main\""

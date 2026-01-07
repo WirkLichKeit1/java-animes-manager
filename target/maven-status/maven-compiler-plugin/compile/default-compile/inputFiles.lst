@@ -1,1 +1,5 @@
-/home/runner/workspace/src/main/java/Main.java
+/home/runner/workspace/src/main/java/com/meuprojeto/app/repository/UserRepository.java
+/home/runner/workspace/src/main/java/com/meuprojeto/app/Main.java
+/home/runner/workspace/src/main/java/com/meuprojeto/app/config/DatabaseConfig.java
+/home/runner/workspace/src/main/java/com/meuprojeto/app/service/UserService.java
+/home/runner/workspace/src/main/java/com/meuprojeto/app/model/User.java
