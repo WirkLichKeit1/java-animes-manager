@@ -25,7 +25,7 @@ public class UserRepository {
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
-            e.printStackTrace(e);
+            e.printStackTrace();
         }
     }
 
@@ -33,13 +33,13 @@ public class UserRepository {
         String sql = "INSERT INTO users (nome, email) VALUES (?,?)";
 
         try (Connection conn = DatabaseConfig.getConnection();
-            PreparedStatement stmt = conn.preparedStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setStrint(1, user.getName());
+            stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.executeUpdate();
         } catch (SQLException e ) {
-            e.printStackTrace(e);
+            e.printStackTrace();
         }
     }
 
