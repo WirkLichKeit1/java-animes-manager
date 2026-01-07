@@ -9,7 +9,7 @@ public class UserService {
     private final UserRepository repository = new UserRepository();
 
     public void createUser(String nome, String email) {
-        User user = new User(name, email);
+        User user = new User(nome, email);
         repository.save(user);
     }
 

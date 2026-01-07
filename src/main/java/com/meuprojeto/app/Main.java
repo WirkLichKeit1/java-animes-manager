@@ -10,7 +10,7 @@ public class Main {
         service.createUser("Luiz", "luiz@gmail.com");
         service.createUser("Leticia", "leticia@gmail.com");
 
-        service.ListUser().forEach(u ->
+        service.ListUsers().forEach(u ->
             System.out.println(u.getId() + " - " + u.getName())
         );
     }

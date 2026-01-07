@@ -53,12 +53,12 @@ public class UserRepository {
             while (rs.next()) {
                 users.add(new User(
                         rs.getInt("id"),
-                        rs.getStrint("name"),
+                        rs.getString("nome"),
                         rs.getString("email")
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace(e);
+            e.printStackTrace();
         }
 
         return users;
