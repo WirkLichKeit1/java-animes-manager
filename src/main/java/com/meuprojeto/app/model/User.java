@@ -15,4 +15,16 @@ public class User {
         this.nome = nome;
         this.email = email;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
