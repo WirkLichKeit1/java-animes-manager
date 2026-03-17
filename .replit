@@ -70,30 +70,10 @@ expertMode = true
 runButton = "Project"
 
 [[workflows.workflow]]
-name = "Project"
-mode = "parallel"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Run Main"
-
-[[workflows.workflow]]
-name = "Run Main"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "mvn clean compile exec:java -Dexec.mainClass=\"Main\""
-
-[workflows.workflow.metadata]
-outputType = "console"
-
-[[workflows.workflow]]
-name = "cep"
+name = "Main"
 mode = "sequential"
 author = 48223061
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "mvn clean compile exec:java -Dexec.mainClass=\"Main\""
+args = "javac Main.java && java Main"
