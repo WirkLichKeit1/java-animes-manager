@@ -29,6 +29,8 @@ class AnimeControllerTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private AnimeService animeService;
+    @MockBean private com.animeapi.security.JwtService jwtService;
+    @MockBean private com.animeapi.security.UserDetailsServiceImpl userDetailsService;
 
     private AnimeResponse animeResponse;
 

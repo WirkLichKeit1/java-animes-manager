@@ -25,6 +25,8 @@ class AuthControllerTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private AuthService authService;
+    @MockBean private com.animeapi.security.JwtService jwtService;
+    @MockBean private com.animeapi.security.UserDetailsServiceImpl userDetailsService;
 
     @Test
     void register_ShouldReturn201_WhenValidRequest() throws Exception {
