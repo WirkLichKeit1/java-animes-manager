@@ -21,7 +21,7 @@ public interface AnimeRepository extends JpaRepository<Anime, Long> {
 
     @Query("""
         SELECT DISTINCT a.genre FROM Anime a
-        WHERE a.genre IS NOT NULL,
+        WHERE a.genre IS NOT NULL
         ORDER BY a.genre
     """)
     List<String> findAllGenres();

@@ -39,7 +39,7 @@ public class Anime {
     private Integer releaseYear;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 30, columnDefinition = "VARCHAR(30)")
     @Builder.Default
     private AnimeStatus status = AnimeStatus.ONGOING;
 

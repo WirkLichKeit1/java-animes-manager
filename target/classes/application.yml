@@ -3,9 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/animedb}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:postgres}
+    url: ${DB_URL}
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
@@ -16,7 +14,7 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
   flyway:
@@ -39,7 +37,6 @@ app:
     expiration-ms: 86400000  # 24 hours
 
   storage:
-    # Use 'local' for development, 's3' for production
     type: ${STORAGE_TYPE:local}
     local:
       base-path: ${STORAGE_LOCAL_PATH:./uploads}

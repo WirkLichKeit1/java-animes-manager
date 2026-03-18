@@ -28,7 +28,7 @@ public interface EpisodeRepository extends JpaRepository<Episode, Long> {
     );
 
     @Modifying
-    @Query("UPDATE Episode e SET e.value = e.views + 1 WHERE e.id = :id")
+    @Query("UPDATE Episode e SET e.views = e.views + 1 WHERE e.id = :id")
     void incrementViews(@Param("id") Long id);
 
     List<Episode> findByVideoStatus(VideoStatus status);

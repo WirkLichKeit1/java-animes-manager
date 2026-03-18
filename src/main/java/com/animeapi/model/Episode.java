@@ -48,10 +48,10 @@ public class Episode {
     private String thumbnailUrl;
 
     @Column(name = "video_filename", length = 500)
-    private String VideoFilename;
+    private String videoFilename;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "video_status", nullable = false, length = 30)
+    @Column(name = "video_status", nullable = false, length = 30, columnDefinition = "VARCHAR(30)")
     @Builder.Default
     private VideoStatus videoStatus = VideoStatus.PROCESSING;
 

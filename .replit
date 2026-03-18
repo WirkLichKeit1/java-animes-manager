@@ -76,7 +76,7 @@ author = 48223061
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "mvn test"
+args = "mvn spring-boot:run"
 
 [[workflows.workflow]]
 name = "Test"
@@ -85,4 +85,8 @@ author = 48223061
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "mvn test"
+args = "mvn clean compile"
+
+[[ports]]
+localPort = 8080
+externalPort = 80
