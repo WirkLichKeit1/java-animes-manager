@@ -1,0 +1,73 @@
+package com.animeapi.service;
+
+import com.animeapi.dto.request.WatchProgressRequest;
+import com.animeapi.dto.response.PageResponse;
+import com.animeapi.dto.response.WatchHistoryResponse;
+import com.animeapi.exception.ResourceNotFoundException;
+import com.animeapi.model.Episode;
+import com.animeapi.model.User;
+import com.animeapi.model.WatchHistory;
+import com.animeapi.repository.EpisodeRepository;
+import com.animeapi.repository.WatchHistoryRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class WatchHistoryService {
+
+    private final WatchHistoryRepository watchHistoryRepository;
+    private final EpisodeRepository episodeRepository;
+
+    @Transactional
+    public WatchHistoryResponse saveProgress(User user, WatchProgressRequest request) {
+        Episode episode = episodeRepository.findById(request.getEpisodeId())
+                .orElseThrow(() -> new ResourceNotFoundException("Episode", request.getEpisodeId()));
+
+        WatchHistory history = watchHistoryRepository
+                .findByUserIdAndEpisodeId(user.getId(), episode.getId())
+                .orElse(WatchHistory.builder()
+                        .user(user)
+                        .episode(episode)
+                        .build());
+
+        history.setProgressSeconds(request.getProgressSeconds());
+        history.setCompleted(request.isCompleted());
+        history.setWatchedAt(java.time.LocalDateTime.now());
+
+        watchHistoryRepository.save(history);
+        episodeRepository.incrementViews(episode.getId());
+
+        log.info("Progress saved for user {} on episode {}", user.getUsername(), episode.getId());
+        return toResponse(history);
+    }
+
+    @Transactional(readOnly = true)
+    public PageResponse<WatchHistoryResponse> getHistory(User user, Pageable pageable) {
+        Page<WatchHistoryResponse> page = watchHistoryRepository
+                .findByUserIdOrderByWatchedAtDesc(user.getId(), pageable)
+                .map(this::toResponse);
+        return PageResponse.of(page);
+    }
+
+    private WatchHistoryResponse toResponse(WatchHistory history) {
+        WatchHistoryResponse response = new WatchHistoryResponse();
+        response.setId(history.getId());
+        response.setEpisodeId(history.getEpisode().getId());
+        response.setEpisodeTitle(history.getEpisode().getTitle());
+        response.setEpisodeNumber(history.getEpisode().getEpisodeNumber());
+        response.setSeasonNumber(history.getEpisode().getSeasonNumber());
+        response.setAnimeId(history.getEpisode().getAnime().getId());
+        response.setAnimeTitle(history.getEpisode().getAnime().getTitle());
+        response.setAnimeCoverImageUrl(history.getEpisode().getAnime().getCoverImageUrl());
+        response.setProgressSeconds(history.getProgressSeconds());
+        response.setCompleted(history.isCompleted());
+        response.setWatchedAt(history.getWatchedAt());
+        return response;
+    }
+}

@@ -76,4 +76,13 @@ author = 48223061
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "javac Main.java && java Main"
+args = "mvn test"
+
+[[workflows.workflow]]
+name = "dependency"
+mode = "sequential"
+author = 48223061
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mvn test -X 2>&1 | head -50"

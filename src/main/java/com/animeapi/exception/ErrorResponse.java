@@ -1,3 +1,6 @@
+package com.animeapi.exception;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
