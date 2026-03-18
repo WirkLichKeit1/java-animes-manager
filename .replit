@@ -79,10 +79,10 @@ task = "shell.exec"
 args = "mvn test"
 
 [[workflows.workflow]]
-name = "dependency"
+name = "Test"
 mode = "sequential"
 author = 48223061
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "mvn test -X 2>&1 | head -50"
+args = "mvn test"

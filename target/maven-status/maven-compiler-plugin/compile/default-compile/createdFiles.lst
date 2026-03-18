@@ -1,0 +1,5 @@
+com/animeapi/model/WatchHistory$WatchHistoryBuilder.class
+com/animeapi/model/Favorite$FavoriteBuilder.class
+com/animeapi/model/User$UserBuilder.class
+com/animeapi/model/Episode$EpisodeBuilder.class
+com/animeapi/model/Anime$AnimeBuilder.class
