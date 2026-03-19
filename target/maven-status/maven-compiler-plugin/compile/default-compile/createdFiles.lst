@@ -48,5 +48,5 @@ com/animeapi/dto/request/WatchProgressRequest.class
 com/animeapi/service/FavoriteService.class
 com/animeapi/repository/EpisodeRepository.class
 com/animeapi/security/JwtAuthFilter.class
-com/animeapi/dto/response/JwtResponse.class
 com/animeapi/dto/request/EpisodeRequest.class
+com/animeapi/dto/response/JwtResponse.class

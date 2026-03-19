@@ -1,7 +1,7 @@
 com/animeapi/service/AnimeServiceTest.class
 com/animeapi/service/FavoriteServiceTest.class
 com/animeapi/service/AuthServiceTest.class
-com/animeapi/service/WatchHistoryServiceTest.class
 com/animeapi/controller/AuthControllerTest.class
-com/animeapi/service/EpisodeServiceTest.class
+com/animeapi/service/WatchHistoryServiceTest.class
 com/animeapi/controller/AnimeControllerTest.class
+com/animeapi/service/EpisodeServiceTest.class
