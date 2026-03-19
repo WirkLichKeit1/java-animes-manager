@@ -27,7 +27,7 @@ public interface EpisodeRepository extends JpaRepository<Episode, Long> {
         Long animeId, Integer season, Integer episode
     );
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE Episode e SET e.views = e.views + 1 WHERE e.id = :id")
     void incrementViews(@Param("id") Long id);
 

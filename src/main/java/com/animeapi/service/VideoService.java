@@ -72,6 +72,7 @@ public class VideoService {
         }
     }
 
+    @Transactional
     public ResponseEntity<StreamingResponseBody> streamVideo(Long episodeId, String rangeHeader) {
         Episode episode = getEpisodeOrThrow(episodeId);
 
