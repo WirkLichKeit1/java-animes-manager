@@ -33,13 +33,13 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET:my-super-secret-key-for-anime-api-256-bits-long!!}
+    secret: ${JWT_SECRET}
     expiration-ms: 86400000  # 24 hours
 
   storage:
     type: ${STORAGE_TYPE:local}
     local:
-      base-path: ${STORAGE_LOCAL_PATH:./uploads}
+      base-path: ${STORAGE_LOCAL_PATH:/app/uploads}
     s3:
       bucket: ${S3_BUCKET:anime-videos}
       region: ${AWS_REGION:us-east-1}
@@ -47,6 +47,15 @@ app:
   video:
     max-bitrate-kbps: 5000
     allowed-formats: mp4,mkv,avi,webm
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
 
 logging:
   level:
