@@ -45,6 +45,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/animes/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/episodes/**").permitAll()
                 .requestMatchers("/api/videos/stream/**").permitAll()
+                .requestMatchers("/images/**").permitAll()
+                .requestMatchers("/videos/**").permitAll()
                 // Apens ADMIN
                 .requestMatchers(HttpMethod.POST, "/api/animes/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/animes/**").hasRole("ADMIN")
