@@ -66,7 +66,9 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of(
             "http://localhost:3000",
-            "https://*.vercel.app"
+            "https://*.vercel.app",
+            "https://*.replit.dev",
+            "https://*.picard.replit.dev"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
