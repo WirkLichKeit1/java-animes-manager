@@ -118,11 +118,18 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- *** ADICIONADO: Rate limiting para proteção de brute force em /api/auth/** *** -->
+        <!-- Rate limiting -->
         <dependency>
             <groupId>com.bucket4j</groupId>
             <artifactId>bucket4j-core</artifactId>
             <version>8.7.0</version>
+        </dependency>
+
+        <!-- *** ADICIONADO: Cloudinary SDK para armazenamento de imagens e vídeos *** -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.38.0</version>
         </dependency>
 
         <!-- Testing -->
