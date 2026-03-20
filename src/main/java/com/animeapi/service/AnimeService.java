@@ -30,8 +30,7 @@ public class AnimeService {
     @Transactional(readOnly = true)
     @Cacheable(value = "animes", key = "#id")
     public AnimeResponse findById(Long id) {
-        Anime anime = getAnimeOrThrow(id);
-        return toResponse(anime);
+        return toResponse(getAnimeOrThrow(id));
     }
 
     @Transactional(readOnly = true)
@@ -141,7 +140,7 @@ public class AnimeService {
         response.setCoverImageUrl(anime.getCoverImageUrl());
         response.setBannerImageUrl(anime.getBannerImageUrl());
         response.setRating(anime.getRating());
-        response.setTotalEpisodes(anime.getEpisodes().size());
+        response.setTotalEpisodes(anime.getEpisodeCount());
         response.setCreatedAt(anime.getCreatedAt());
         response.setUpdatedAt(anime.getUpdatedAt());
         return response;

@@ -3,7 +3,6 @@ package com.animeapi.service;
 import com.animeapi.dto.request.LoginRequest;
 import com.animeapi.dto.request.RegisterRequest;
 import com.animeapi.dto.response.JwtResponse;
-import com.animeapi.exception.ResourceNotFoundException;
 import com.animeapi.model.Role;
 import com.animeapi.model.User;
 import com.animeapi.repository.UserRepository;
@@ -13,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,6 +65,6 @@ public class AuthService {
     @Transactional(readOnly = true)
     public User getCurrentUser(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", 0L));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 }

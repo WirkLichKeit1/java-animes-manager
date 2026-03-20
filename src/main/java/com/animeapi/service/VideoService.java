@@ -27,11 +27,14 @@ import java.util.List;
 public class VideoService {
 
     private static final List<String> ALLOWED_FORMATS = Arrays.asList("mp4", "mkv", "avi", "webm");
-    private static final long CHUNK_SIZE = 2 * 1024 * 1024;
+    private static final long CHUNK_SIZE = 2 * 1024 * 1024; // 2MB
     private static final long MAX_CHUNK = (long) Integer.MAX_VALUE;
 
     private final EpisodeRepository episodeRepository;
     private final StorageService storageService;
+
+    // *** CORRIGIDO: injetado para resolver @Async + @Transactional no mesmo bean ***
+    private final VideoStatusUpdater videoStatusUpdater;
 
     @Transactional
     public void uploadVideo(Long episodeId, MultipartFile file) {
@@ -50,25 +53,21 @@ public class VideoService {
         processVideoAsync(episodeId, filename);
     }
 
+    // *** CORRIGIDO: @Async sem @Transactional — a transação fica no VideoStatusUpdater ***
+    // Antes, chamar this.updateEpisodeStatus() não passava pelo proxy do Spring,
+    // então a transação nunca era aberta e mudanças podiam não ser persistidas.
     @Async
     public void processVideoAsync(Long episodeId, String filename) {
-        updateEpisodeStatus(episodeId, filename);
-    }
-
-    @Transactional
-    public void updateEpisodeStatus(Long episodeId, String filename) {
         try {
+            // Simula processamento (transcodificação, validação, etc.)
             Thread.sleep(1000);
-            Episode episode = getEpisodeOrThrow(episodeId);
-            episode.setVideoStatus(VideoStatus.READY);
-            episodeRepository.save(episode);
-            log.info("Video processed successfully for episode {}: {}", episodeId, filename);
+            videoStatusUpdater.markReady(episodeId, filename);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            markEpisodeAsError(episodeId);
+            videoStatusUpdater.markError(episodeId);
         } catch (Exception e) {
             log.error("Error processing video for episode {}: {}", episodeId, e.getMessage(), e);
-            markEpisodeAsError(episodeId);
+            videoStatusUpdater.markError(episodeId);
         }
     }
 
@@ -86,6 +85,7 @@ public class VideoService {
         long fileSize = storageService.getFileSize(filename);
         String contentType = resolveContentType(filename);
 
+        // Stream completo (sem Range header)
         if (rangeHeader == null) {
             StreamingResponseBody body = outputStream -> {
                 try (InputStream is = storageService.load(filename)) {
@@ -101,6 +101,7 @@ public class VideoService {
                     .body(body);
         }
 
+        // Stream parcial (Range request — suporte a seek no player)
         long[] range = parseRange(rangeHeader, fileSize);
         long start = range[0];
         long end = range[1];
@@ -146,6 +147,7 @@ public class VideoService {
         long end = (parts.length > 1 && !parts[1].trim().isEmpty())
                 ? Long.parseLong(parts[1].trim())
                 : Math.min(start + CHUNK_SIZE - 1, fileSize - 1);
+
         if (start < 0 || start >= fileSize || end >= fileSize || start > end) {
             throw new VideoProcessingException("Invalid range: " + rangeHeader);
         }
@@ -153,12 +155,17 @@ public class VideoService {
     }
 
     private void validateVideoFile(MultipartFile file) {
-        if (file == null || file.isEmpty()) throw new IllegalArgumentException("Video file must not be empty");
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("Video file must not be empty");
+        }
         String filename = file.getOriginalFilename();
-        if (filename == null || !filename.contains(".")) throw new IllegalArgumentException("Invalid filename");
+        if (filename == null || !filename.contains(".")) {
+            throw new IllegalArgumentException("Invalid filename");
+        }
         String extension = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
-        if (!ALLOWED_FORMATS.contains(extension))
+        if (!ALLOWED_FORMATS.contains(extension)) {
             throw new IllegalArgumentException("Invalid video format. Allowed: " + String.join(", ", ALLOWED_FORMATS));
+        }
     }
 
     private String resolveContentType(String filename) {
@@ -166,16 +173,6 @@ public class VideoService {
         if (filename.endsWith(".webm")) return "video/webm";
         if (filename.endsWith(".mkv"))  return "video/x-matroska";
         return "video/mp4";
-    }
-
-    private void markEpisodeAsError(Long episodeId) {
-        try {
-            Episode episode = getEpisodeOrThrow(episodeId);
-            episode.setVideoStatus(VideoStatus.ERROR);
-            episodeRepository.save(episode);
-        } catch (Exception e) {
-            log.error("Failed to mark episode {} as error", episodeId, e);
-        }
     }
 
     private Episode getEpisodeOrThrow(Long episodeId) {

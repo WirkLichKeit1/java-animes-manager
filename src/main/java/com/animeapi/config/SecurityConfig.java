@@ -30,6 +30,7 @@ import java.util.List;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final JwtAuthFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
@@ -40,14 +41,18 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Públicos
+                // Rotas públicas de auth
                 .requestMatchers("/api/auth/**").permitAll()
+
+                // Leitura pública de animes e episódios
                 .requestMatchers(HttpMethod.GET, "/api/animes/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/episodes/**").permitAll()
-                .requestMatchers("/api/videos/stream/**").permitAll()
+
+                // Imagens públicas (capas, banners, thumbnails)
                 .requestMatchers("/images/**").permitAll()
-                .requestMatchers("/videos/**").permitAll()
-                // Apens ADMIN
+                .requestMatchers("/api/videos/stream/**").authenticated()
+
+                // Apenas ADMIN
                 .requestMatchers(HttpMethod.POST, "/api/animes/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/animes/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/animes/**").hasRole("ADMIN")
@@ -55,11 +60,13 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/api/episodes/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/episodes/**").hasRole("ADMIN")
                 .requestMatchers("/api/videos/upload/**").hasRole("ADMIN")
-                // Autenticados
+
+                // Qualquer outra rota exige login
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 

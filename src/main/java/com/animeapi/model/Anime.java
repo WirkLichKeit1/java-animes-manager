@@ -2,6 +2,7 @@ package com.animeapi.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Anime {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -52,21 +54,27 @@ public class Anime {
     @Column(precision = 3, scale = 1)
     private BigDecimal rating;
 
+    // @Formula executa uma subquery SQL diretamente, sem carregar a coleção inteira
+    @Formula("(SELECT COUNT(e.id) FROM episodes e WHERE e.anime_id = id)")
+    private int episodeCount;
+
+    // Mantido para uso em contextos que realmente precisam da lista (ex: cascade delete)
+    // mas NÃO use para contar — use episodeCount
     @OneToMany(mappedBy = "anime", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("seasonNumber ASC, episodeNumber ASC")
     @Builder.Default
     private List<Episode> episodes = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)
-        @Builder.Default
-        private LocalDateTime createdAt = LocalDateTime.now();
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-        @Column(name = "updated_at", nullable = false)
-        @Builder.Default
-        private LocalDateTime updatedAt = LocalDateTime.now();
+    @Column(name = "updated_at", nullable = false)
+    @Builder.Default
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @PreUpdate
-    public void onUodate() {
+    public void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
 }
