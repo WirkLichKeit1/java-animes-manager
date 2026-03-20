@@ -44,12 +44,22 @@ public class SecurityConfig {
                 // Rotas públicas de auth
                 .requestMatchers("/api/auth/**").permitAll()
 
+                // Endpoint de erro do Spring — deve ser público para evitar
+                // "Unable to handle the Spring Security Exception because the
+                // response is already committed" nos logs
+                .requestMatchers("/error").permitAll()
+
+                // Health check
+                .requestMatchers("/actuator/health").permitAll()
+
                 // Leitura pública de animes e episódios
                 .requestMatchers(HttpMethod.GET, "/api/animes/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/episodes/**").permitAll()
 
-                // Imagens públicas (capas, banners, thumbnails)
+                // Imagens públicas (capas, banners, thumbnails) — armazenamento local
                 .requestMatchers("/images/**").permitAll()
+
+                // Streaming de vídeo exige autenticação
                 .requestMatchers("/api/videos/stream/**").authenticated()
 
                 // Apenas ADMIN

@@ -140,7 +140,9 @@ public class EpisodeService {
         response.setSeasonNumber(episode.getSeasonNumber());
         response.setSynopsis(episode.getSynopsis());
         response.setDurationSeconds(episode.getDurationSeconds());
-        response.setThumbnailUrl(episode.getThumbnailUrl());
+        response.setThumbnailUrl(
+            episode.getThumbnailUrl() != null ? storageService.getUrl(episode.getThumbnailUrl()) : null
+        );
         response.setVideoStatus(episode.getVideoStatus());
         response.setViews(episode.getViews());
         response.setPublished(episode.isPublished());

@@ -23,6 +23,7 @@ public class WatchHistoryService {
 
     private final WatchHistoryRepository watchHistoryRepository;
     private final EpisodeRepository episodeRepository;
+    private final StorageService storageService;
 
     @Transactional
     public WatchHistoryResponse saveProgress(User user, WatchProgressRequest request) {
@@ -64,7 +65,12 @@ public class WatchHistoryService {
         response.setSeasonNumber(history.getEpisode().getSeasonNumber());
         response.setAnimeId(history.getEpisode().getAnime().getId());
         response.setAnimeTitle(history.getEpisode().getAnime().getTitle());
-        response.setAnimeCoverImageUrl(history.getEpisode().getAnime().getCoverImageUrl());
+
+        String rawCoverUrl = history.getEpisode().getAnime().getCoverImageUrl();
+        response.setAnimeCoverImageUrl(
+            rawCoverUrl != null ? storageService.getUrl(rawCoverUrl) : null
+        );
+
         response.setProgressSeconds(history.getProgressSeconds());
         response.setCompleted(history.isCompleted());
         response.setWatchedAt(history.getWatchedAt());

@@ -137,8 +137,12 @@ public class AnimeService {
         response.setStudio(anime.getStudio());
         response.setReleaseYear(anime.getReleaseYear());
         response.setStatus(anime.getStatus());
-        response.setCoverImageUrl(anime.getCoverImageUrl());
-        response.setBannerImageUrl(anime.getBannerImageUrl());
+        response.setCoverImageUrl(
+            anime.getCoverImageUrl() != null ? storageService.getUrl(anime.getCoverImageUrl()) : null
+        );
+        response.setBannerImageUrl(
+            anime.getBannerImageUrl() != null ? storageService.getUrl(anime.getBannerImageUrl()) : null
+        );
         response.setRating(anime.getRating());
         response.setTotalEpisodes(anime.getEpisodeCount());
         response.setCreatedAt(anime.getCreatedAt());

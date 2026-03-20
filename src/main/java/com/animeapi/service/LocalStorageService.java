@@ -38,15 +38,11 @@ public class LocalStorageService implements StorageService {
         String originalFilename = file.getOriginalFilename();
         String extension = getExtension(originalFilename);
 
-        // *** CORRIGIDO: valida extensão antes de usar ***
-        // Impede path traversal via extensão maliciosa (ex: "../../etc/passwd")
         if (extension.contains("/") || extension.contains("\\") || extension.contains("..") || extension.isBlank()) {
             throw new IllegalArgumentException("Invalid file extension: " + extension);
         }
 
         String filename = directory + "/" + UUID.randomUUID() + "." + extension;
-
-        // *** CORRIGIDO: normaliza e valida que o destino está dentro do basePath ***
         Path destination = basePath.resolve(filename).normalize();
 
         if (!destination.startsWith(basePath)) {
@@ -63,9 +59,17 @@ public class LocalStorageService implements StorageService {
         }
     }
 
+    /**
+     * Para armazenamento local, a URL é o próprio path relativo.
+     * O backend serve os arquivos via /images/** configurado no SecurityConfig.
+     */
+    @Override
+    public String getUrl(String key) {
+        return key;
+    }
+
     @Override
     public InputStream load(String filename) {
-        // *** CORRIGIDO: valida path também no load ***
         Path file = basePath.resolve(filename).normalize();
 
         if (!file.startsWith(basePath)) {
@@ -129,9 +133,7 @@ public class LocalStorageService implements StorageService {
         if (filename == null || !filename.contains(".")) {
             return "bin";
         }
-        // Pega apenas a última extensão e remove qualquer caracter suspeito
         String ext = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
-        // Aceita apenas caracteres alfanuméricos na extensão
         if (!ext.matches("[a-z0-9]+")) {
             return "bin";
         }

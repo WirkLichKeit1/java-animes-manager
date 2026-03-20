@@ -13,18 +13,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
-/**
- * Implementação do StorageService para Cloudinary.
- *
- * Arquivos são organizados em pastas dentro do cloud:
- *   darkjam/images/ → capas, banners, thumbnails
- *   darkjam/videos/ → episódios
- *
- * Variáveis de ambiente necessárias:
- *   CLOUDINARY_CLOUD_NAME → Cloud name da conta
- *   CLOUDINARY_API_KEY    → API Key
- *   CLOUDINARY_API_SECRET → API Secret
- */
 @Slf4j
 public class CloudinaryStorageService implements StorageService {
 
@@ -48,8 +36,6 @@ public class CloudinaryStorageService implements StorageService {
         try {
             // TreeMap garante ordem alfabética dos parâmetros,
             // necessária para a assinatura HMAC do Cloudinary.
-            // ObjectUtils.asMap usa HashMap, cuja ordem não é garantida,
-            // causando "Invalid Signature" em algumas JVMs.
             Map<String, Object> uploadParams = new TreeMap<>();
             uploadParams.put("overwrite", false);
             uploadParams.put("public_id", publicId);
@@ -66,18 +52,21 @@ public class CloudinaryStorageService implements StorageService {
         }
     }
 
+    /**
+     * Retorna a URL pública CDN do Cloudinary para o arquivo.
+     * Esta URL é usada diretamente no frontend para carregar imagens.
+     */
+    @Override
+    public String getUrl(String publicId) {
+        String resourceType = publicId.contains("/videos/") ? "video" : "image";
+        return cloudinary.url().resourceType(resourceType).generate(publicId);
+    }
+
     @Override
     public InputStream load(String publicId) {
         try {
-            String resourceType = publicId.contains("/videos/") ? "video" : "image";
-
-            // Gera a URL do arquivo e faz download via HTTP
-            String url = cloudinary.url()
-                    .resourceType(resourceType)
-                    .generate(publicId);
-
+            String url = getUrl(publicId);
             return URI.create(url).toURL().openStream();
-
         } catch (IOException e) {
             throw new VideoProcessingException("Failed to load file from Cloudinary: " + publicId, e);
         }
@@ -122,22 +111,10 @@ public class CloudinaryStorageService implements StorageService {
     public boolean exists(String publicId) {
         try {
             String resourceType = publicId.contains("/videos/") ? "video" : "image";
-
             cloudinary.api().resource(publicId, ObjectUtils.asMap("resource_type", resourceType));
             return true;
-
         } catch (Exception e) {
             return false;
         }
-    }
-
-    /**
-     * Retorna a URL pública de um arquivo armazenado no Cloudinary.
-     * Use para imagens (capas, banners, thumbnails).
-     * Para vídeos, prefira o streaming via VideoService.
-     */
-    public String getPublicUrl(String publicId) {
-        String resourceType = publicId.contains("/videos/") ? "video" : "image";
-        return cloudinary.url().resourceType(resourceType).generate(publicId);
     }
 }
