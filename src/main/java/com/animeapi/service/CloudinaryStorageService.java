@@ -6,11 +6,11 @@ import com.cloudinary.utils.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 /**
@@ -46,14 +46,16 @@ public class CloudinaryStorageService implements StorageService {
         String resourceType = directory.equals("videos") ? "video" : "image";
 
         try {
-            Map<?, ?> result = cloudinary.uploader().upload(
-                    file.getBytes(),
-                    ObjectUtils.asMap(
-                            "public_id", publicId,
-                            "resource_type", resourceType,
-                            "overwrite", false
-                    )
-            );
+            // TreeMap garante ordem alfabética dos parâmetros,
+            // necessária para a assinatura HMAC do Cloudinary.
+            // ObjectUtils.asMap usa HashMap, cuja ordem não é garantida,
+            // causando "Invalid Signature" em algumas JVMs.
+            Map<String, Object> uploadParams = new TreeMap<>();
+            uploadParams.put("overwrite", false);
+            uploadParams.put("public_id", publicId);
+            uploadParams.put("resource_type", resourceType);
+
+            Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), uploadParams);
 
             String storedKey = result.get("public_id").toString();
             log.info("Stored file in Cloudinary: {}", storedKey);
