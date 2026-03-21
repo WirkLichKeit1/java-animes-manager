@@ -10,12 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Serviço auxiliar separado do VideoService para corrigir o problema de
- * @Async + @Transactional no mesmo bean.
- *
- * Quando @Async e @Transactional estão no mesmo bean, a chamada interna
- * via "this.método()" não passa pelo proxy do Spring, então a transação
- * nunca é aberta. Ao separar em beans distintos, o proxy funciona corretamente.
+ * Serviço auxiliar separado do VideoService para que @Async + @Transactional
+ * funcionem corretamente (proxies Spring distintos).
  */
 @Service
 @RequiredArgsConstructor
@@ -24,13 +20,27 @@ public class VideoStatusUpdater {
 
     private final EpisodeRepository episodeRepository;
 
+    /**
+     * Salva o filename do vídeo e marca o episódio como READY.
+     * Chamado após o upload assíncrono para o Cloudinary ser concluído.
+     */
     @Transactional
-    public void markReady(Long episodeId, String filename) {
+    public void markReadyWithFilename(Long episodeId, String filename) {
         Episode episode = episodeRepository.findById(episodeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Episode", episodeId));
+        episode.setVideoFilename(filename);
         episode.setVideoStatus(VideoStatus.READY);
         episodeRepository.save(episode);
-        log.info("Video processed successfully for episode {}: {}", episodeId, filename);
+        log.info("Video ready for episode {}: {}", episodeId, filename);
+    }
+
+    /**
+     * Mantido para compatibilidade — usado quando o upload falha
+     * e não há filename para salvar.
+     */
+    @Transactional
+    public void markReady(Long episodeId, String filename) {
+        markReadyWithFilename(episodeId, filename);
     }
 
     @Transactional

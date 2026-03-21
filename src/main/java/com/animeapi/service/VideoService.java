@@ -18,6 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +38,17 @@ public class VideoService {
     private final StorageService storageService;
     private final VideoStatusUpdater videoStatusUpdater;
 
+    /**
+     * Recebe o vídeo, grava em disco temporariamente e responde ao cliente
+     * imediatamente com status PROCESSING. O upload para o Cloudinary acontece
+     * em background via @Async.
+     *
+     * Isso resolve dois problemas:
+     * 1. O request HTTP não fica bloqueado durante o upload de centenas de MB,
+     *    evitando timeout no frontend e reinício da aplicação no Render.
+     * 2. O MultipartFile precisa ser copiado para disco ANTES do request terminar —
+     *    depois que o request fecha, o servlet invalida o InputStream do MultipartFile.
+     */
     @Transactional
     public void uploadVideo(Long episodeId, MultipartFile file) {
         Episode episode = getEpisodeOrThrow(episodeId);
@@ -42,52 +56,56 @@ public class VideoService {
 
         if (episode.getVideoFilename() != null) {
             storageService.delete(episode.getVideoFilename());
+            episode.setVideoFilename(null);
         }
 
-        String filename = storageService.store(file, "videos");
-        episode.setVideoFilename(filename);
+        // Copia para disco dentro do request — depois que o request fechar,
+        // o InputStream do MultipartFile fica inválido.
+        Path tempFile = copyToTempFile(file);
+
         episode.setVideoStatus(VideoStatus.PROCESSING);
         episodeRepository.save(episode);
 
-        processVideoAsync(episodeId, filename);
+        log.info("Video received for episode {}, starting async upload ({} MB)",
+                episodeId, String.format("%.1f", tempFile.toFile().length() / 1_048_576.0));
+
+        uploadToStorageAsync(episodeId, tempFile, file.getOriginalFilename());
     }
 
-    /**
-     * Processamento assíncrono do vídeo.
-     *
-     * Race condition tratada: se o episódio for deletado enquanto este método
-     * roda, o VideoStatusUpdater não encontra o episódio e loga um aviso —
-     * sem lançar exceção. O arquivo no storage, porém, ficaria órfão nesse
-     * cenário porque já foi salvo antes da deleção.
-     *
-     * Para mitigar o orphan file: o EpisodeService.delete() já chama
-     * storageService.delete(episode.getVideoFilename()), então o arquivo
-     * é limpo no momento da deleção, independentemente do status do
-     * processamento assíncrono.
-     */
     @Async
-    public void processVideoAsync(Long episodeId, String filename) {
+    public void uploadToStorageAsync(Long episodeId, Path tempFile, String originalFilename) {
         try {
-            // Simula processamento (transcodificação, validação, etc.)
-            Thread.sleep(1000);
-
-            // Verifica se o episódio ainda existe antes de tentar atualizar o status.
-            // Se foi deletado durante o processamento, apenas loga e encerra sem erro.
             Optional<Episode> ep = episodeRepository.findById(episodeId);
             if (ep.isEmpty()) {
-                log.warn("Episode {} was deleted during async processing — skipping status update. " +
-                         "Storage file '{}' should have been cleaned up by EpisodeService.delete().",
-                         episodeId, filename);
+                log.warn("Episode {} deleted before async upload started — aborting.", episodeId);
                 return;
             }
 
-            videoStatusUpdater.markReady(episodeId, filename);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            videoStatusUpdater.markError(episodeId);
+            log.info("Uploading to Cloudinary for episode {}: {}", episodeId, originalFilename);
+
+            String filename = storageService.storeFromPath(tempFile, "videos", originalFilename);
+
+            // Checa novamente — pode ter sido deletado durante o upload (que pode demorar minutos)
+            Optional<Episode> epAfterUpload = episodeRepository.findById(episodeId);
+            if (epAfterUpload.isEmpty()) {
+                log.warn("Episode {} deleted during upload — cleaning up orphan file '{}'.",
+                         episodeId, filename);
+                storageService.delete(filename);
+                return;
+            }
+
+            videoStatusUpdater.markReadyWithFilename(episodeId, filename);
+            log.info("Upload complete for episode {}: {}", episodeId, filename);
+
         } catch (Exception e) {
-            log.error("Error processing video for episode {}: {}", episodeId, e.getMessage(), e);
+            log.error("Async upload failed for episode {}: {}", episodeId, e.getMessage(), e);
             videoStatusUpdater.markError(episodeId);
+        } finally {
+            try {
+                Files.deleteIfExists(tempFile);
+            } catch (IOException e) {
+                log.warn("Failed to delete temp file: {}", tempFile, e);
+            }
         }
     }
 
@@ -156,6 +174,22 @@ public class VideoService {
                 .header(HttpHeaders.CONTENT_RANGE, "bytes " + start + "-" + finalEnd + "/" + fileSize)
                 .header(HttpHeaders.ACCEPT_RANGES, "bytes")
                 .body(body);
+    }
+
+    private Path copyToTempFile(MultipartFile file) {
+        try {
+            String originalFilename = file.getOriginalFilename();
+            String suffix = (originalFilename != null && originalFilename.contains("."))
+                    ? "." + originalFilename.substring(originalFilename.lastIndexOf('.') + 1)
+                    : ".tmp";
+            Path tempFile = Files.createTempFile("video-upload-", suffix);
+            try (InputStream in = file.getInputStream()) {
+                Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            }
+            return tempFile;
+        } catch (IOException e) {
+            throw new VideoProcessingException("Failed to copy upload to temp file", e);
+        }
     }
 
     private long[] parseRange(String rangeHeader, long fileSize) {

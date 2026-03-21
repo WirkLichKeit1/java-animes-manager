@@ -6,9 +6,13 @@ import com.cloudinary.utils.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -33,29 +37,85 @@ public class CloudinaryStorageService implements StorageService {
         String publicId = FOLDER_PREFIX + "/" + directory + "/" + UUID.randomUUID();
         String resourceType = directory.equals("videos") ? "video" : "image";
 
+        // *** CORRIGIDO: não usa mais file.getBytes() ***
+        // file.getBytes() carrega o arquivo inteiro na heap — com arquivos grandes
+        // (ex: vídeos de 280 MB) isso causa OutOfMemoryError e derruba a aplicação.
+        //
+        // Solução: grava o MultipartFile em um arquivo temporário no disco e faz
+        // upload a partir dele. O Cloudinary SDK lê o arquivo via stream internamente,
+        // sem carregá-lo inteiramente na memória.
+        //
+        // O arquivo temporário é deletado no bloco finally, independente do resultado.
+        Path tempFile = null;
         try {
-            // TreeMap garante ordem alfabética dos parâmetros,
-            // necessária para a assinatura HMAC do Cloudinary.
+            String originalFilename = file.getOriginalFilename();
+            String suffix = (originalFilename != null && originalFilename.contains("."))
+                    ? "." + originalFilename.substring(originalFilename.lastIndexOf('.') + 1)
+                    : ".tmp";
+
+            tempFile = Files.createTempFile("upload-", suffix);
+
+            // Copia o stream do MultipartFile para o arquivo temporário
+            // sem passar pela heap (copia diretamente entre streams)
+            try (InputStream in = file.getInputStream()) {
+                Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            }
+
             Map<String, Object> uploadParams = new TreeMap<>();
             uploadParams.put("overwrite", false);
             uploadParams.put("public_id", publicId);
             uploadParams.put("resource_type", resourceType);
 
-            Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), uploadParams);
+            // Upload via File — o SDK faz chunked upload internamente para vídeos grandes
+            Map<?, ?> result = cloudinary.uploader().upload(tempFile.toFile(), uploadParams);
 
             String storedKey = result.get("public_id").toString();
             log.info("Stored file in Cloudinary: {}", storedKey);
             return storedKey;
 
         } catch (IOException e) {
-            throw new VideoProcessingException("Failed to store file in Cloudinary: " + file.getOriginalFilename(), e);
+            throw new VideoProcessingException(
+                    "Failed to store file in Cloudinary: " + file.getOriginalFilename(), e);
+        } finally {
+            // Garante que o arquivo temporário seja deletado mesmo em caso de erro
+            if (tempFile != null) {
+                try {
+                    Files.deleteIfExists(tempFile);
+                } catch (IOException e) {
+                    log.warn("Failed to delete temp file: {}", tempFile, e);
+                }
+            }
         }
     }
 
     /**
-     * Retorna a URL pública CDN do Cloudinary para o arquivo.
-     * Esta URL é usada diretamente no frontend para carregar imagens.
+     * Upload a partir de um arquivo temporário no disco.
+     * Usado pelo VideoService para fazer upload assíncrono sem carregar o
+     * arquivo inteiro na heap.
      */
+    @Override
+    public String storeFromPath(Path tempFile, String directory, String originalFilename) {
+        String publicId = FOLDER_PREFIX + "/" + directory + "/" + UUID.randomUUID();
+        String resourceType = directory.equals("videos") ? "video" : "image";
+
+        try {
+            Map<String, Object> uploadParams = new TreeMap<>();
+            uploadParams.put("overwrite", false);
+            uploadParams.put("public_id", publicId);
+            uploadParams.put("resource_type", resourceType);
+
+            Map<?, ?> result = cloudinary.uploader().upload(tempFile.toFile(), uploadParams);
+
+            String storedKey = result.get("public_id").toString();
+            log.info("Stored file from path in Cloudinary: {}", storedKey);
+            return storedKey;
+
+        } catch (IOException e) {
+            throw new VideoProcessingException(
+                    "Failed to store file from path in Cloudinary: " + originalFilename, e);
+        }
+    }
+
     @Override
     public String getUrl(String publicId) {
         String resourceType = publicId.contains("/videos/") ? "video" : "image";

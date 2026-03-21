@@ -37,17 +37,10 @@ public class LocalStorageService implements StorageService {
 
         String originalFilename = file.getOriginalFilename();
         String extension = getExtension(originalFilename);
-
-        if (extension.contains("/") || extension.contains("\\") || extension.contains("..") || extension.isBlank()) {
-            throw new IllegalArgumentException("Invalid file extension: " + extension);
-        }
+        validateExtension(extension, originalFilename);
 
         String filename = directory + "/" + UUID.randomUUID() + "." + extension;
-        Path destination = basePath.resolve(filename).normalize();
-
-        if (!destination.startsWith(basePath)) {
-            throw new IllegalArgumentException("Path traversal attempt detected for file: " + originalFilename);
-        }
+        Path destination = resolveSafe(filename);
 
         try {
             Files.createDirectories(destination.getParent());
@@ -59,10 +52,24 @@ public class LocalStorageService implements StorageService {
         }
     }
 
-    /**
-     * Para armazenamento local, a URL é o próprio path relativo.
-     * O backend serve os arquivos via /images/** configurado no SecurityConfig.
-     */
+    @Override
+    public String storeFromPath(Path tempFile, String directory, String originalFilename) {
+        String extension = getExtension(originalFilename);
+        validateExtension(extension, originalFilename);
+
+        String filename = directory + "/" + UUID.randomUUID() + "." + extension;
+        Path destination = resolveSafe(filename);
+
+        try {
+            Files.createDirectories(destination.getParent());
+            Files.copy(tempFile, destination, StandardCopyOption.REPLACE_EXISTING);
+            log.info("Stored file from temp: {}", filename);
+            return filename;
+        } catch (IOException e) {
+            throw new VideoProcessingException("Failed to store file from temp: " + originalFilename, e);
+        }
+    }
+
     @Override
     public String getUrl(String key) {
         return key;
@@ -70,12 +77,7 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public InputStream load(String filename) {
-        Path file = basePath.resolve(filename).normalize();
-
-        if (!file.startsWith(basePath)) {
-            throw new IllegalArgumentException("Path traversal attempt detected for: " + filename);
-        }
-
+        Path file = resolveSafe(filename);
         try {
             if (!Files.exists(file)) {
                 throw new VideoProcessingException("File not found: " + filename);
@@ -88,12 +90,7 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public long getFileSize(String filename) {
-        Path file = basePath.resolve(filename).normalize();
-
-        if (!file.startsWith(basePath)) {
-            throw new IllegalArgumentException("Path traversal attempt detected for: " + filename);
-        }
-
+        Path file = resolveSafe(filename);
         try {
             return Files.size(file);
         } catch (IOException e) {
@@ -103,13 +100,7 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public void delete(String filename) {
-        Path file = basePath.resolve(filename).normalize();
-
-        if (!file.startsWith(basePath)) {
-            log.warn("Path traversal attempt on delete for: {}", filename);
-            return;
-        }
-
+        Path file = resolveSafe(filename);
         try {
             Files.deleteIfExists(file);
             log.info("Deleted file: {}", filename);
@@ -120,13 +111,26 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public boolean exists(String filename) {
-        Path file = basePath.resolve(filename).normalize();
-
-        if (!file.startsWith(basePath)) {
+        try {
+            Path file = resolveSafe(filename);
+            return Files.exists(file);
+        } catch (IllegalArgumentException e) {
             return false;
         }
+    }
 
-        return Files.exists(file);
+    private Path resolveSafe(String filename) {
+        Path resolved = basePath.resolve(filename).normalize();
+        if (!resolved.startsWith(basePath)) {
+            throw new IllegalArgumentException("Path traversal attempt detected for: " + filename);
+        }
+        return resolved;
+    }
+
+    private void validateExtension(String extension, String originalFilename) {
+        if (extension.contains("/") || extension.contains("\\") || extension.contains("..") || extension.isBlank()) {
+            throw new IllegalArgumentException("Invalid file extension: " + extension);
+        }
     }
 
     private String getExtension(String filename) {
