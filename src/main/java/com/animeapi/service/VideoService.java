@@ -1,5 +1,7 @@
 package com.animeapi.service;
 
+import com.animeapi.dto.request.VideoUploadConfirmRequest;
+import com.animeapi.dto.response.VideoUploadSignatureResponse;
 import com.animeapi.exception.ResourceNotFoundException;
 import com.animeapi.exception.VideoProcessingException;
 import com.animeapi.model.Episode;
@@ -10,20 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,82 +27,59 @@ import java.util.Optional;
 public class VideoService {
 
     private static final List<String> ALLOWED_FORMATS = Arrays.asList("mp4", "mkv", "avi", "webm");
-    private static final long CHUNK_SIZE = 2 * 1024 * 1024; // 2MB
+    private static final long CHUNK_SIZE = 2 * 1024 * 1024; // 2MB para streaming
     private static final long MAX_CHUNK = (long) Integer.MAX_VALUE;
 
     private final EpisodeRepository episodeRepository;
     private final StorageService storageService;
-    private final VideoStatusUpdater videoStatusUpdater;
 
     /**
-     * Recebe o vídeo, grava em disco temporariamente e responde ao cliente
-     * imediatamente com status PROCESSING. O upload para o Cloudinary acontece
-     * em background via @Async.
+     * Gera uma assinatura HMAC-SHA256 para upload direto ao Cloudinary.
      *
-     * Isso resolve dois problemas:
-     * 1. O request HTTP não fica bloqueado durante o upload de centenas de MB,
-     *    evitando timeout no frontend e reinício da aplicação no Render.
-     * 2. O MultipartFile precisa ser copiado para disco ANTES do request terminar —
-     *    depois que o request fecha, o servlet invalida o InputStream do MultipartFile.
+     * O frontend usa os dados retornados para enviar o vídeo diretamente
+     * para api.cloudinary.com — o arquivo nunca passa pelo servidor Render.
+     *
+     * Fluxo completo:
+     * 1. Frontend chama este endpoint → recebe {signature, timestamp, apiKey, cloudName, publicId}
+     * 2. Frontend faz POST multipart direto para Cloudinary com o arquivo + esses dados
+     * 3. Cloudinary valida a assinatura e armazena o vídeo
+     * 4. Frontend chama confirmUpload() com o publicId retornado pelo Cloudinary
+     * 5. Backend salva o publicId no episódio e marca como READY
      */
     @Transactional
-    public void uploadVideo(Long episodeId, MultipartFile file) {
+    public VideoUploadSignatureResponse generateUploadSignature(Long episodeId) {
         Episode episode = getEpisodeOrThrow(episodeId);
-        validateVideoFile(file);
 
+        // Deleta vídeo anterior se existir
         if (episode.getVideoFilename() != null) {
             storageService.delete(episode.getVideoFilename());
             episode.setVideoFilename(null);
         }
 
-        // Copia para disco dentro do request — depois que o request fechar,
-        // o InputStream do MultipartFile fica inválido.
-        Path tempFile = copyToTempFile(file);
-
+        // Marca como PROCESSING enquanto o upload está em andamento
         episode.setVideoStatus(VideoStatus.PROCESSING);
         episodeRepository.save(episode);
 
-        log.info("Video received for episode {}, starting async upload ({} MB)",
-                episodeId, String.format("%.1f", tempFile.toFile().length() / 1_048_576.0));
+        VideoUploadSignatureResponse signature = storageService.generateUploadSignature("videos");
 
-        uploadToStorageAsync(episodeId, tempFile, file.getOriginalFilename());
+        log.info("Upload signature generated for episode {}: publicId={}",
+                episodeId, signature.getPublicId());
+        return signature;
     }
 
-    @Async
-    public void uploadToStorageAsync(Long episodeId, Path tempFile, String originalFilename) {
-        try {
-            Optional<Episode> ep = episodeRepository.findById(episodeId);
-            if (ep.isEmpty()) {
-                log.warn("Episode {} deleted before async upload started — aborting.", episodeId);
-                return;
-            }
+    /**
+     * Chamado pelo frontend após o upload direto ao Cloudinary ser concluído.
+     * Salva o publicId no episódio e marca como READY.
+     */
+    @Transactional
+    public void confirmUpload(Long episodeId, VideoUploadConfirmRequest request) {
+        Episode episode = getEpisodeOrThrow(episodeId);
 
-            log.info("Uploading to Cloudinary for episode {}: {}", episodeId, originalFilename);
+        episode.setVideoFilename(request.getPublicId());
+        episode.setVideoStatus(VideoStatus.READY);
+        episodeRepository.save(episode);
 
-            String filename = storageService.storeFromPath(tempFile, "videos", originalFilename);
-
-            // Checa novamente — pode ter sido deletado durante o upload (que pode demorar minutos)
-            Optional<Episode> epAfterUpload = episodeRepository.findById(episodeId);
-            if (epAfterUpload.isEmpty()) {
-                log.warn("Episode {} deleted during upload — cleaning up orphan file '{}'.",
-                         episodeId, filename);
-                storageService.delete(filename);
-                return;
-            }
-
-            videoStatusUpdater.markReadyWithFilename(episodeId, filename);
-            log.info("Upload complete for episode {}: {}", episodeId, filename);
-
-        } catch (Exception e) {
-            log.error("Async upload failed for episode {}: {}", episodeId, e.getMessage(), e);
-            videoStatusUpdater.markError(episodeId);
-        } finally {
-            try {
-                Files.deleteIfExists(tempFile);
-            } catch (IOException e) {
-                log.warn("Failed to delete temp file: {}", tempFile, e);
-            }
-        }
+        log.info("Video confirmed for episode {}: {}", episodeId, request.getPublicId());
     }
 
     @Transactional
@@ -176,22 +149,6 @@ public class VideoService {
                 .body(body);
     }
 
-    private Path copyToTempFile(MultipartFile file) {
-        try {
-            String originalFilename = file.getOriginalFilename();
-            String suffix = (originalFilename != null && originalFilename.contains("."))
-                    ? "." + originalFilename.substring(originalFilename.lastIndexOf('.') + 1)
-                    : ".tmp";
-            Path tempFile = Files.createTempFile("video-upload-", suffix);
-            try (InputStream in = file.getInputStream()) {
-                Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
-            }
-            return tempFile;
-        } catch (IOException e) {
-            throw new VideoProcessingException("Failed to copy upload to temp file", e);
-        }
-    }
-
     private long[] parseRange(String rangeHeader, long fileSize) {
         String range = rangeHeader.replace("bytes=", "");
         String[] parts = range.split("-");
@@ -204,20 +161,6 @@ public class VideoService {
             throw new VideoProcessingException("Invalid range: " + rangeHeader);
         }
         return new long[]{start, end};
-    }
-
-    private void validateVideoFile(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("Video file must not be empty");
-        }
-        String filename = file.getOriginalFilename();
-        if (filename == null || !filename.contains(".")) {
-            throw new IllegalArgumentException("Invalid filename");
-        }
-        String extension = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
-        if (!ALLOWED_FORMATS.contains(extension)) {
-            throw new IllegalArgumentException("Invalid video format. Allowed: " + String.join(", ", ALLOWED_FORMATS));
-        }
     }
 
     private String resolveContentType(String filename) {

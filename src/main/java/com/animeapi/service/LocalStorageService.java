@@ -1,5 +1,6 @@
 package com.animeapi.service;
 
+import com.animeapi.dto.response.VideoUploadSignatureResponse;
 import com.animeapi.exception.VideoProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,8 +38,6 @@ public class LocalStorageService implements StorageService {
 
         String originalFilename = file.getOriginalFilename();
         String extension = getExtension(originalFilename);
-        validateExtension(extension, originalFilename);
-
         String filename = directory + "/" + UUID.randomUUID() + "." + extension;
         Path destination = resolveSafe(filename);
 
@@ -55,8 +54,6 @@ public class LocalStorageService implements StorageService {
     @Override
     public String storeFromPath(Path tempFile, String directory, String originalFilename) {
         String extension = getExtension(originalFilename);
-        validateExtension(extension, originalFilename);
-
         String filename = directory + "/" + UUID.randomUUID() + "." + extension;
         Path destination = resolveSafe(filename);
 
@@ -68,6 +65,18 @@ public class LocalStorageService implements StorageService {
         } catch (IOException e) {
             throw new VideoProcessingException("Failed to store file from temp: " + originalFilename, e);
         }
+    }
+
+    /**
+     * Upload direto não é suportado em armazenamento local.
+     * Em desenvolvimento, use o endpoint de upload multipart normal ou
+     * configure STORAGE_TYPE=cloudinary.
+     */
+    @Override
+    public VideoUploadSignatureResponse generateUploadSignature(String directory) {
+        throw new UnsupportedOperationException(
+                "Direct upload signatures are only supported with Cloudinary storage. " +
+                "Set STORAGE_TYPE=cloudinary or use the multipart upload endpoint instead.");
     }
 
     @Override
@@ -100,8 +109,8 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public void delete(String filename) {
-        Path file = resolveSafe(filename);
         try {
+            Path file = resolveSafe(filename);
             Files.deleteIfExists(file);
             log.info("Deleted file: {}", filename);
         } catch (IOException e) {
@@ -112,8 +121,7 @@ public class LocalStorageService implements StorageService {
     @Override
     public boolean exists(String filename) {
         try {
-            Path file = resolveSafe(filename);
-            return Files.exists(file);
+            return Files.exists(resolveSafe(filename));
         } catch (IllegalArgumentException e) {
             return false;
         }
@@ -127,20 +135,9 @@ public class LocalStorageService implements StorageService {
         return resolved;
     }
 
-    private void validateExtension(String extension, String originalFilename) {
-        if (extension.contains("/") || extension.contains("\\") || extension.contains("..") || extension.isBlank()) {
-            throw new IllegalArgumentException("Invalid file extension: " + extension);
-        }
-    }
-
     private String getExtension(String filename) {
-        if (filename == null || !filename.contains(".")) {
-            return "bin";
-        }
+        if (filename == null || !filename.contains(".")) return "bin";
         String ext = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
-        if (!ext.matches("[a-z0-9]+")) {
-            return "bin";
-        }
-        return ext;
+        return ext.matches("[a-z0-9]+") ? ext : "bin";
     }
 }

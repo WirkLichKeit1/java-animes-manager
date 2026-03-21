@@ -1,8 +1,10 @@
 package com.animeapi.controller;
 
 import com.animeapi.dto.request.EpisodeRequest;
+import com.animeapi.dto.request.VideoUploadConfirmRequest;
 import com.animeapi.dto.response.EpisodeResponse;
 import com.animeapi.dto.response.PageResponse;
+import com.animeapi.dto.response.VideoUploadSignatureResponse;
 import com.animeapi.service.EpisodeService;
 import com.animeapi.service.VideoService;
 import jakarta.validation.Valid;
@@ -80,14 +82,31 @@ public class EpisodeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    /**
+     * Gera uma assinatura para upload direto do vídeo ao Cloudinary pelo frontend.
+     * O arquivo nunca passa pelo servidor — o Render fica completamente fora do caminho.
+     */
+    @PostMapping("/{id}/video-signature")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> uploadVideo(
+    public ResponseEntity<VideoUploadSignatureResponse> getVideoUploadSignature(
+            @PathVariable Long animeId,
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(videoService.generateUploadSignature(id));
+    }
+
+    /**
+     * Chamado pelo frontend após o upload direto ao Cloudinary ser concluído.
+     * Salva o publicId e marca o vídeo como READY.
+     */
+    @PostMapping("/{id}/video-confirm")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> confirmVideoUpload(
             @PathVariable Long animeId,
             @PathVariable Long id,
-            @RequestParam("file") MultipartFile file
+            @RequestBody @Valid VideoUploadConfirmRequest request
     ) {
-        videoService.uploadVideo(id, file);
+        videoService.confirmUpload(id, request);
         return ResponseEntity.noContent().build();
     }
 

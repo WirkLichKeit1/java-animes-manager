@@ -1,5 +1,6 @@
 package com.animeapi.service;
 
+import com.animeapi.dto.response.VideoUploadSignatureResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -9,21 +10,23 @@ public interface StorageService {
 
     /**
      * Salva um arquivo a partir de um MultipartFile e retorna a chave/path gerado.
-     * Para arquivos grandes, prefira storeFromPath() para evitar OOM.
      */
     String store(MultipartFile file, String directory);
 
     /**
      * Salva um arquivo a partir de um Path no disco (arquivo temporário).
-     * Não carrega o arquivo inteiro na heap — usa stream diretamente.
-     * Indicado para vídeos e outros arquivos grandes.
-     *
-     * @param tempFile        caminho do arquivo temporário no disco
-     * @param directory       subdiretório de destino (ex: "videos", "images")
-     * @param originalFilename nome original do arquivo (usado para determinar extensão/tipo)
-     * @return chave/publicId do arquivo salvo
      */
     String storeFromPath(Path tempFile, String directory, String originalFilename);
+
+    /**
+     * Gera uma assinatura para upload direto pelo cliente (frontend → Cloudinary).
+     * Retorna os parâmetros necessários para o frontend fazer o POST diretamente
+     * para a API do Cloudinary sem passar pelo servidor.
+     *
+     * Implementações de storage local podem lançar UnsupportedOperationException,
+     * pois o upload direto só faz sentido com storage remoto.
+     */
+    VideoUploadSignatureResponse generateUploadSignature(String directory);
 
     /**
      * Retorna a URL pública de acesso ao arquivo.

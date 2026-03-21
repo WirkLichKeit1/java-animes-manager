@@ -1,17 +1,21 @@
 package com.animeapi.service;
 
+import com.animeapi.dto.response.VideoUploadSignatureResponse;
 import com.animeapi.exception.VideoProcessingException;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.HexFormat;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -20,23 +24,46 @@ import java.util.UUID;
 public class CloudinaryStorageService implements StorageService {
 
     private static final String FOLDER_PREFIX = "darkjam";
-
-    /**
-     * Threshold acima do qual usa chunked upload (100 MB).
-     * O Cloudinary aceita chunks de até 100 MB por request,
-     * contornando limites de nginx/proxies intermediários.
-     */
-    private static final long CHUNKED_UPLOAD_THRESHOLD = 100L * 1024 * 1024;
-
-    /**
-     * Tamanho de cada chunk: 95 MB (margem de segurança abaixo do limite de 100 MB).
-     */
-    private static final long CHUNK_SIZE = 95L * 1024 * 1024;
+    private static final long CHUNKED_UPLOAD_THRESHOLD = 100L * 1024 * 1024; // 100 MB
+    private static final long CHUNK_SIZE = 95L * 1024 * 1024;                // 95 MB
 
     private final Cloudinary cloudinary;
+    private final String apiSecret;
+    private final String apiKey;
+    private final String cloudName;
 
     public CloudinaryStorageService(Cloudinary cloudinary) {
         this.cloudinary = cloudinary;
+        this.apiSecret = cloudinary.config.apiSecret;
+        this.apiKey = cloudinary.config.apiKey;
+        this.cloudName = cloudinary.config.cloudName;
+    }
+
+    /**
+     * Gera uma assinatura HMAC-SHA256 para upload direto pelo frontend.
+     *
+     * O Cloudinary valida a assinatura para garantir que o upload foi autorizado
+     * pelo backend. O api_secret nunca é exposto ao frontend — apenas a assinatura.
+     *
+     * Parâmetros assinados: public_id + timestamp (em ordem alfabética).
+     * Formato: SHA256(public_id=xxx&timestamp=yyy + api_secret)
+     */
+    @Override
+    public VideoUploadSignatureResponse generateUploadSignature(String directory) {
+        try {
+            String publicId = FOLDER_PREFIX + "/" + directory + "/" + UUID.randomUUID();
+            long timestamp = System.currentTimeMillis() / 1000L;
+
+            // Parâmetros em ordem alfabética — obrigatório para a assinatura do Cloudinary
+            String paramsToSign = "public_id=" + publicId + "&timestamp=" + timestamp;
+            String signature = hmacSha256(paramsToSign + apiSecret);
+
+            log.debug("Upload signature generated for publicId: {}", publicId);
+            return new VideoUploadSignatureResponse(signature, timestamp, apiKey, cloudName, publicId);
+
+        } catch (Exception e) {
+            throw new VideoProcessingException("Failed to generate upload signature", e);
+        }
     }
 
     @Override
@@ -51,11 +78,9 @@ public class CloudinaryStorageService implements StorageService {
         Path tempFile = null;
         try {
             String originalFilename = file.getOriginalFilename();
-            String suffix = (originalFilename != null && originalFilename.contains("."))
-                    ? "." + originalFilename.substring(originalFilename.lastIndexOf('.') + 1)
-                    : ".tmp";
-
+            String suffix = getSuffix(originalFilename);
             tempFile = Files.createTempFile("upload-", suffix);
+
             try (InputStream in = file.getInputStream()) {
                 Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
             }
@@ -85,15 +110,6 @@ public class CloudinaryStorageService implements StorageService {
         }
     }
 
-    /**
-     * Decide entre upload normal e chunked com base no tamanho do arquivo.
-     *
-     * Arquivos <= 100 MB → upload normal (único POST).
-     * Arquivos > 100 MB  → chunked upload (múltiplos POSTs de 95 MB).
-     *
-     * O chunked upload contorna o 413 do nginx porque cada request individual
-     * nunca ultrapassa o CHUNK_SIZE — o Cloudinary remonta o arquivo no final.
-     */
     private String uploadFile(java.io.File file, String publicId, String resourceType, String originalFilename)
             throws IOException {
 
@@ -105,14 +121,12 @@ public class CloudinaryStorageService implements StorageService {
         uploadParams.put("overwrite", false);
 
         Map<?, ?> result;
-
         if (fileSize > CHUNKED_UPLOAD_THRESHOLD) {
             log.info("Using chunked upload for '{}' ({} MB, {} chunks of {} MB)",
                     originalFilename,
                     String.format("%.1f", fileSize / 1_048_576.0),
                     (int) Math.ceil((double) fileSize / CHUNK_SIZE),
                     String.format("%.0f", CHUNK_SIZE / 1_048_576.0));
-
             uploadParams.put("chunk_size", CHUNK_SIZE);
             result = cloudinary.uploader().uploadLarge(file, uploadParams);
         } else {
@@ -160,10 +174,7 @@ public class CloudinaryStorageService implements StorageService {
     public void delete(String publicId) {
         try {
             String resourceType = publicId.contains("/videos/") ? "video" : "image";
-            cloudinary.uploader().destroy(
-                    publicId,
-                    ObjectUtils.asMap("resource_type", resourceType)
-            );
+            cloudinary.uploader().destroy(publicId, ObjectUtils.asMap("resource_type", resourceType));
             log.info("Deleted file from Cloudinary: {}", publicId);
         } catch (IOException e) {
             log.warn("Failed to delete file from Cloudinary: {}", publicId, e);
@@ -179,5 +190,18 @@ public class CloudinaryStorageService implements StorageService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private String hmacSha256(String data) throws Exception {
+        Mac mac = Mac.getInstance("HmacSHA256");
+        mac.init(new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256"));
+        return HexFormat.of().formatHex(mac.doFinal(data.getBytes()));
+    }
+
+    private String getSuffix(String filename) {
+        if (filename != null && filename.contains(".")) {
+            return "." + filename.substring(filename.lastIndexOf('.') + 1);
+        }
+        return ".tmp";
     }
 }
