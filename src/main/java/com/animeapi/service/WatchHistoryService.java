@@ -27,7 +27,9 @@ public class WatchHistoryService {
 
     @Transactional
     public WatchHistoryResponse saveProgress(User user, WatchProgressRequest request) {
-        Episode episode = episodeRepository.findById(request.getEpisodeId())
+        // JOIN FETCH carrega Episode + Anime em uma única query,
+        // garantindo que toResponse() funcione mesmo após o commit da transação.
+        Episode episode = episodeRepository.findByIdWithAnime(request.getEpisodeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Episode", request.getEpisodeId()));
 
         WatchHistory history = watchHistoryRepository
@@ -50,8 +52,10 @@ public class WatchHistoryService {
 
     @Transactional(readOnly = true)
     public PageResponse<WatchHistoryResponse> getHistory(User user, Pageable pageable) {
+        // JOIN FETCH carrega Episode + Anime junto — sem LazyInitializationException
+        // no toResponse() mesmo fora de sessão ativa.
         Page<WatchHistoryResponse> page = watchHistoryRepository
-                .findByUserIdOrderByWatchedAtDesc(user.getId(), pageable)
+                .findByUserIdWithEpisodeAndAnime(user.getId(), pageable)
                 .map(this::toResponse);
         return PageResponse.of(page);
     }

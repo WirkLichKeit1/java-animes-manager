@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,8 +33,6 @@ public class VideoService {
 
     private final EpisodeRepository episodeRepository;
     private final StorageService storageService;
-
-    // *** CORRIGIDO: injetado para resolver @Async + @Transactional no mesmo bean ***
     private final VideoStatusUpdater videoStatusUpdater;
 
     @Transactional
@@ -53,14 +52,35 @@ public class VideoService {
         processVideoAsync(episodeId, filename);
     }
 
-    // *** CORRIGIDO: @Async sem @Transactional — a transação fica no VideoStatusUpdater ***
-    // Antes, chamar this.updateEpisodeStatus() não passava pelo proxy do Spring,
-    // então a transação nunca era aberta e mudanças podiam não ser persistidas.
+    /**
+     * Processamento assíncrono do vídeo.
+     *
+     * Race condition tratada: se o episódio for deletado enquanto este método
+     * roda, o VideoStatusUpdater não encontra o episódio e loga um aviso —
+     * sem lançar exceção. O arquivo no storage, porém, ficaria órfão nesse
+     * cenário porque já foi salvo antes da deleção.
+     *
+     * Para mitigar o orphan file: o EpisodeService.delete() já chama
+     * storageService.delete(episode.getVideoFilename()), então o arquivo
+     * é limpo no momento da deleção, independentemente do status do
+     * processamento assíncrono.
+     */
     @Async
     public void processVideoAsync(Long episodeId, String filename) {
         try {
             // Simula processamento (transcodificação, validação, etc.)
             Thread.sleep(1000);
+
+            // Verifica se o episódio ainda existe antes de tentar atualizar o status.
+            // Se foi deletado durante o processamento, apenas loga e encerra sem erro.
+            Optional<Episode> ep = episodeRepository.findById(episodeId);
+            if (ep.isEmpty()) {
+                log.warn("Episode {} was deleted during async processing — skipping status update. " +
+                         "Storage file '{}' should have been cleaned up by EpisodeService.delete().",
+                         episodeId, filename);
+                return;
+            }
+
             videoStatusUpdater.markReady(episodeId, filename);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -85,7 +105,6 @@ public class VideoService {
         long fileSize = storageService.getFileSize(filename);
         String contentType = resolveContentType(filename);
 
-        // Stream completo (sem Range header)
         if (rangeHeader == null) {
             StreamingResponseBody body = outputStream -> {
                 try (InputStream is = storageService.load(filename)) {
@@ -101,7 +120,6 @@ public class VideoService {
                     .body(body);
         }
 
-        // Stream parcial (Range request — suporte a seek no player)
         long[] range = parseRange(rangeHeader, fileSize);
         long start = range[0];
         long end = range[1];

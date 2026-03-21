@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Repository
 public interface EpisodeRepository extends JpaRepository<Episode, Long> {
+
     List<Episode> findByAnimeIdAndPublishedTrueOrderBySeasonNumberAscEpisodeNumberAsc(Long animeId);
 
     Page<Episode> findByAnimeId(Long animeId, Pageable pageable);
@@ -32,4 +33,17 @@ public interface EpisodeRepository extends JpaRepository<Episode, Long> {
     void incrementViews(@Param("id") Long id);
 
     List<Episode> findByVideoStatus(VideoStatus status);
+
+    /**
+     * Carrega o Episode junto com o Anime em uma única query (JOIN FETCH).
+     *
+     * Use este método em qualquer lugar que precise acessar episode.getAnime()
+     * fora de uma sessão JPA ativa — especialmente em toResponse() nos services
+     * WatchHistoryService e EpisodeService.
+     *
+     * Substitui o findById() padrão nesses contextos para evitar
+     * LazyInitializationException ao acessar anime.getTitle(), anime.getId(), etc.
+     */
+    @Query("SELECT e FROM Episode e JOIN FETCH e.anime WHERE e.id = :id")
+    Optional<Episode> findByIdWithAnime(@Param("id") Long id);
 }

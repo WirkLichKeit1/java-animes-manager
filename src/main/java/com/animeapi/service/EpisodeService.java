@@ -47,7 +47,9 @@ public class EpisodeService {
 
     @Transactional(readOnly = true)
     public EpisodeResponse findById(Long id) {
-        Episode episode = getEpisodeOrThrow(id);
+        // JOIN FETCH para garantir que anime.getTitle() e anime.getId()
+        // funcionem em toResponse() sem LazyInitializationException.
+        Episode episode = getEpisodeWithAnimeOrThrow(id);
         return toResponse(episode);
     }
 
@@ -79,7 +81,7 @@ public class EpisodeService {
 
     @Transactional
     public EpisodeResponse update(Long id, EpisodeRequest request) {
-        Episode episode = getEpisodeOrThrow(id);
+        Episode episode = getEpisodeWithAnimeOrThrow(id);
 
         episode.setTitle(request.getTitle());
         episode.setSynopsis(request.getSynopsis());
@@ -93,7 +95,7 @@ public class EpisodeService {
 
     @Transactional
     public void uploadThumbnail(Long id, MultipartFile file) {
-        Episode episode = getEpisodeOrThrow(id);
+        Episode episode = getEpisodeWithAnimeOrThrow(id);
 
         if (episode.getThumbnailUrl() != null) {
             storageService.delete(episode.getThumbnailUrl());
@@ -107,7 +109,7 @@ public class EpisodeService {
 
     @Transactional
     public void delete(Long id) {
-        Episode episode = getEpisodeOrThrow(id);
+        Episode episode = getEpisodeWithAnimeOrThrow(id);
 
         if (episode.getVideoFilename() != null) {
             storageService.delete(episode.getVideoFilename());
@@ -125,8 +127,13 @@ public class EpisodeService {
         episodeRepository.incrementViews(id);
     }
 
-    private Episode getEpisodeOrThrow(Long id) {
-        return episodeRepository.findById(id)
+    /**
+     * Busca o Episode com o Anime carregado via JOIN FETCH.
+     * Use este método sempre que toResponse() for chamado, para evitar
+     * LazyInitializationException em episode.getAnime().getTitle() etc.
+     */
+    private Episode getEpisodeWithAnimeOrThrow(Long id) {
+        return episodeRepository.findByIdWithAnime(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Episode", id));
     }
 
