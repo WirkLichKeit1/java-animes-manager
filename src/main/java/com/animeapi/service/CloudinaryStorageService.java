@@ -7,14 +7,13 @@ import com.cloudinary.utils.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
 import java.util.HexFormat;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,8 +23,8 @@ import java.util.UUID;
 public class CloudinaryStorageService implements StorageService {
 
     private static final String FOLDER_PREFIX = "darkjam";
-    private static final long CHUNKED_UPLOAD_THRESHOLD = 100L * 1024 * 1024; // 100 MB
-    private static final long CHUNK_SIZE = 95L * 1024 * 1024;                // 95 MB
+    private static final long CHUNKED_UPLOAD_THRESHOLD = 100L * 1024 * 1024;
+    private static final long CHUNK_SIZE = 95L * 1024 * 1024;
 
     private final Cloudinary cloudinary;
     private final String apiSecret;
@@ -40,13 +39,13 @@ public class CloudinaryStorageService implements StorageService {
     }
 
     /**
-     * Gera uma assinatura HMAC-SHA256 para upload direto pelo frontend.
+     * Gera uma assinatura SHA-1 para upload direto pelo frontend.
      *
-     * O Cloudinary valida a assinatura para garantir que o upload foi autorizado
-     * pelo backend. O api_secret nunca é exposto ao frontend — apenas a assinatura.
+     * O Cloudinary usa SHA-1 (não HMAC-SHA256) para assinar uploads.
+     * Formato: SHA1(public_id=xxx&timestamp=yyy + api_secret)
+     * Os parâmetros DEVEM estar em ordem alfabética.
      *
-     * Parâmetros assinados: public_id + timestamp (em ordem alfabética).
-     * Formato: SHA256(public_id=xxx&timestamp=yyy + api_secret)
+     * Referência: https://cloudinary.com/documentation/upload_images#generating_authentication_signatures
      */
     @Override
     public VideoUploadSignatureResponse generateUploadSignature(String directory) {
@@ -54,9 +53,9 @@ public class CloudinaryStorageService implements StorageService {
             String publicId = FOLDER_PREFIX + "/" + directory + "/" + UUID.randomUUID();
             long timestamp = System.currentTimeMillis() / 1000L;
 
-            // Parâmetros em ordem alfabética — obrigatório para a assinatura do Cloudinary
+            // Parâmetros em ordem alfabética — obrigatório para a assinatura
             String paramsToSign = "public_id=" + publicId + "&timestamp=" + timestamp;
-            String signature = hmacSha256(paramsToSign + apiSecret);
+            String signature = sha1(paramsToSign + apiSecret);
 
             log.debug("Upload signature generated for publicId: {}", publicId);
             return new VideoUploadSignatureResponse(signature, timestamp, apiKey, cloudName, publicId);
@@ -122,11 +121,8 @@ public class CloudinaryStorageService implements StorageService {
 
         Map<?, ?> result;
         if (fileSize > CHUNKED_UPLOAD_THRESHOLD) {
-            log.info("Using chunked upload for '{}' ({} MB, {} chunks of {} MB)",
-                    originalFilename,
-                    String.format("%.1f", fileSize / 1_048_576.0),
-                    (int) Math.ceil((double) fileSize / CHUNK_SIZE),
-                    String.format("%.0f", CHUNK_SIZE / 1_048_576.0));
+            log.info("Using chunked upload for '{}' ({} MB)",
+                    originalFilename, String.format("%.1f", fileSize / 1_048_576.0));
             uploadParams.put("chunk_size", CHUNK_SIZE);
             result = cloudinary.uploader().uploadLarge(file, uploadParams);
         } else {
@@ -192,10 +188,13 @@ public class CloudinaryStorageService implements StorageService {
         }
     }
 
-    private String hmacSha256(String data) throws Exception {
-        Mac mac = Mac.getInstance("HmacSHA256");
-        mac.init(new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256"));
-        return HexFormat.of().formatHex(mac.doFinal(data.getBytes()));
+    /**
+     * SHA-1 hex digest — algoritmo correto para assinaturas do Cloudinary.
+     * O Cloudinary documenta explicitamente o uso de SHA-1, não HMAC.
+     */
+    private String sha1(String data) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-1");
+        return HexFormat.of().formatHex(digest.digest(data.getBytes()));
     }
 
     private String getSuffix(String filename) {
