@@ -29,6 +29,7 @@ class WatchHistoryServiceTest {
 
     @Mock private WatchHistoryRepository watchHistoryRepository;
     @Mock private EpisodeRepository episodeRepository;
+    @Mock private StorageService storageService;
 
     @InjectMocks
     private WatchHistoryService watchHistoryService;
@@ -75,8 +76,7 @@ class WatchHistoryServiceTest {
         request.setEpisodeId(1L);
         request.setProgressSeconds(300);
         request.setCompleted(false);
-
-        when(episodeRepository.findById(1L)).thenReturn(Optional.of(episode));
+        when(episodeRepository.findByIdWithAnime(1L)).thenReturn(Optional.of(episode));
         when(watchHistoryRepository.findByUserIdAndEpisodeId(1L, 1L)).thenReturn(Optional.empty());
         when(watchHistoryRepository.save(any(WatchHistory.class))).thenReturn(watchHistory);
 
@@ -94,7 +94,7 @@ class WatchHistoryServiceTest {
         request.setProgressSeconds(600);
         request.setCompleted(true);
 
-        when(episodeRepository.findById(1L)).thenReturn(Optional.of(episode));
+        when(episodeRepository.findByIdWithAnime(1L)).thenReturn(Optional.of(episode));
         when(watchHistoryRepository.findByUserIdAndEpisodeId(1L, 1L)).thenReturn(Optional.of(watchHistory));
         when(watchHistoryRepository.save(any(WatchHistory.class))).thenReturn(watchHistory);
 
@@ -109,7 +109,7 @@ class WatchHistoryServiceTest {
         request.setEpisodeId(99L);
         request.setProgressSeconds(100);
 
-        when(episodeRepository.findById(99L)).thenReturn(Optional.empty());
+        when(episodeRepository.findByIdWithAnime(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> watchHistoryService.saveProgress(user, request))
                 .isInstanceOf(ResourceNotFoundException.class);
@@ -118,7 +118,7 @@ class WatchHistoryServiceTest {
     @Test
     void getHistory_ShouldReturnPagedHistory() {
         Page<WatchHistory> historyPage = new PageImpl<>(List.of(watchHistory));
-        when(watchHistoryRepository.findByUserIdOrderByWatchedAtDesc(eq(1L), any()))
+        when(watchHistoryRepository.findByUserIdWithEpisodeAndAnime(eq(1L), any()))
                 .thenReturn(historyPage);
 
         PageResponse<WatchHistoryResponse> response = watchHistoryService.getHistory(user, PageRequest.of(0, 20));
