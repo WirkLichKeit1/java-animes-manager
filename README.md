@@ -42,10 +42,7 @@ API REST para uma plataforma de streaming de animes construída com Spring Boot 
 ## Executando localmente
 
 ```bash
-# Copie e preencha as variáveis de ambiente
 cp .env.example .env
-
-# Execute com Maven
 ./mvnw spring-boot:run
 
 # Ou compile e execute o JAR diretamente
@@ -119,8 +116,22 @@ Todos os endpoints têm o prefixo `/api`.
 | `POST` | `/api/animes/:animeId/episodes` | Admin | Criar episódio |
 | `PUT` | `/api/animes/:animeId/episodes/:id` | Admin | Atualizar episódio |
 | `DELETE` | `/api/animes/:animeId/episodes/:id` | Admin | Deletar episódio |
-| `POST` | `/api/animes/:animeId/episodes/:id/video` | Admin | Upload do arquivo de vídeo |
 | `POST` | `/api/animes/:animeId/episodes/:id/thumbnail` | Admin | Upload da thumbnail |
+
+### Upload de vídeo (direto ao Cloudinary)
+
+O vídeo nunca passa pelo servidor. O fluxo é browser → Cloudinary diretamente, com o backend atuando apenas como validador e confirmador.
+
+| Método | Endpoint | Auth | Descrição |
+|---|---|---|---|
+| `POST` | `/api/animes/:animeId/episodes/:id/video-signature` | Admin | Gera assinatura para upload direto ao Cloudinary |
+| `POST` | `/api/animes/:animeId/episodes/:id/video-confirm` | Admin | Confirma o upload e marca o episódio como READY |
+
+**Fluxo completo:**
+1. Frontend chama `video-signature` → recebe `{signature, timestamp, apiKey, cloudName, publicId}`
+2. Cloudinary Upload Widget envia o arquivo diretamente para o Cloudinary com esses dados
+3. Frontend chama `video-confirm` com o `publicId` retornado pelo Cloudinary
+4. Backend salva o `publicId` no episódio e marca o status como `READY`
 
 ### Streaming de vídeo
 
@@ -177,7 +188,7 @@ uploads/
 └── videos/   # Arquivos de vídeo dos episódios
 ```
 
-Adequado apenas para desenvolvimento. **Não use em produção** — os arquivos são perdidos a cada redeploy em plataformas como Render.
+Adequado apenas para desenvolvimento. **Não use em produção** — os arquivos são perdidos a cada redeploy em plataformas como Render. O upload direto ao Cloudinary (`video-signature`) não é suportado com armazenamento local.
 
 ### Cloudinary (`STORAGE_TYPE=cloudinary`)
 
@@ -192,7 +203,7 @@ darkjam/
 As URLs públicas do Cloudinary são retornadas diretamente nos responses da API (campos `coverImageUrl`, `bannerImageUrl`, `thumbnailUrl`). O frontend usa essas URLs diretamente — sem passar pelo backend para servir imagens.
 
 Para configurar no Cloudinary:
-1. Crie uma conta em [cloudinary.com](https://cloudinary.com) (plano gratuito inclui 25GB)
+1. Crie uma conta em [cloudinary.com](https://cloudinary.com) (plano gratuito inclui 25GB, mas o limite de upload por arquivo é 100MB)
 2. Acesse **Settings → Access Keys** e gere um par de chaves
 3. Configure as três variáveis de ambiente (`CLOUD_NAME`, `API_KEY`, `API_SECRET`)
 
@@ -200,15 +211,17 @@ Para configurar no Cloudinary:
 
 Formatos de vídeo aceitos: `mp4`, `mkv`, `avi`, `webm`.
 
-Todos os caminhos de armazenamento local são validados contra o diretório base para prevenir ataques de path traversal.
-
 ## Decisões de arquitetura
+
+**Upload de vídeo sem passar pelo servidor** — o vídeo vai direto do browser para o Cloudinary. O backend gera uma assinatura SHA-1 com o `api_secret` e retorna os parâmetros para o frontend. O Cloudinary valida a assinatura e armazena o arquivo. O servidor Render nunca recebe o binário, eliminando o risco de OOM e timeouts por uploads grandes.
 
 **`@Formula` para contagem de episódios** — em vez de carregar a lista completa de episódios para contar (`getEpisodes().size()`), um campo `@Formula` executa uma subquery SQL diretamente. Isso elimina o N+1 query problem nas listagens de animes.
 
 **`VideoStatusUpdater` separado do `VideoService`** — `@Async` e `@Transactional` no mesmo bean não funcionam corretamente porque chamadas internas (`this.método()`) não passam pelo proxy do Spring. A separação em beans distintos garante que a transação seja aberta corretamente após o processamento assíncrono do vídeo.
 
 **Streaming sem buffer** — o `VideoService` transmite o vídeo via `InputStream.transferTo()` diretamente para o `OutputStream` da resposta, sem carregar o arquivo inteiro em memória. Suporta arquivos de qualquer tamanho.
+
+**JOIN FETCH para evitar LazyInitializationException** — `EpisodeRepository.findByIdWithAnime()` e `WatchHistoryRepository.findByUserIdWithEpisodeAndAnime()` carregam as associações em uma única query, evitando erros ao acessar `episode.getAnime().getTitle()` fora de sessão JPA ativa.
 
 ## Executando os testes
 
@@ -236,10 +249,10 @@ src/main/java/com/animeapi/
 ├── repository/      # Repositórios Spring Data
 ├── security/        # Filtro JWT, serviço JWT, rate limiting
 └── service/         # Regras de negócio
-    ├── StorageService.java         # Interface de storage
-    ├── LocalStorageService.java    # Implementação local
+    ├── StorageService.java           # Interface de storage
+    ├── LocalStorageService.java      # Implementação local
     ├── CloudinaryStorageService.java # Implementação Cloudinary
-    ├── VideoStatusUpdater.java     # Atualização transacional assíncrona
+    ├── VideoStatusUpdater.java       # Atualização transacional assíncrona
     └── ...
 ```
 

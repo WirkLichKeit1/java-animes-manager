@@ -42,10 +42,7 @@ REST API for an anime streaming platform built with Spring Boot 3. Handles authe
 ## Running locally
 
 ```bash
-# Copy and fill in environment variables
 cp .env.example .env
-
-# Run with Maven
 ./mvnw spring-boot:run
 
 # Or build and run the JAR directly
@@ -119,8 +116,22 @@ All endpoints are prefixed with `/api`.
 | `POST` | `/api/animes/:animeId/episodes` | Admin | Create episode |
 | `PUT` | `/api/animes/:animeId/episodes/:id` | Admin | Update episode |
 | `DELETE` | `/api/animes/:animeId/episodes/:id` | Admin | Delete episode |
-| `POST` | `/api/animes/:animeId/episodes/:id/video` | Admin | Upload video file |
 | `POST` | `/api/animes/:animeId/episodes/:id/thumbnail` | Admin | Upload thumbnail |
+
+### Video upload (direct to Cloudinary)
+
+Videos never pass through the server. The flow is browser → Cloudinary directly, with the backend acting only as a signer and confirmer.
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `POST` | `/api/animes/:animeId/episodes/:id/video-signature` | Admin | Generate signature for direct Cloudinary upload |
+| `POST` | `/api/animes/:animeId/episodes/:id/video-confirm` | Admin | Confirm the upload and mark the episode as READY |
+
+**Full flow:**
+1. Frontend calls `video-signature` → receives `{signature, timestamp, apiKey, cloudName, publicId}`
+2. Cloudinary Upload Widget sends the file directly to Cloudinary using those parameters
+3. Frontend calls `video-confirm` with the `publicId` returned by Cloudinary
+4. Backend saves the `publicId` on the episode and sets the status to `READY`
 
 ### Video streaming
 
@@ -177,7 +188,7 @@ uploads/
 └── videos/   # Episode video files
 ```
 
-Suitable for development only. **Do not use in production** — files are lost on every redeploy on platforms like Render.
+Suitable for development only. **Do not use in production** — files are lost on every redeploy on platforms like Render. Direct Cloudinary upload (`video-signature`) is not supported with local storage.
 
 ### Cloudinary (`STORAGE_TYPE=cloudinary`)
 
@@ -192,7 +203,7 @@ darkjam/
 Cloudinary public URLs are returned directly in API responses (`coverImageUrl`, `bannerImageUrl`, `thumbnailUrl` fields). The frontend uses these URLs directly — the backend is not involved in serving images.
 
 To set up Cloudinary:
-1. Create an account at [cloudinary.com](https://cloudinary.com) (free plan includes 25GB)
+1. Create an account at [cloudinary.com](https://cloudinary.com) (free plan includes 25GB, but the per-file upload limit is 100MB)
 2. Go to **Settings → Access Keys** and generate a key pair
 3. Set the three environment variables (`CLOUD_NAME`, `API_KEY`, `API_SECRET`)
 
@@ -200,15 +211,17 @@ To set up Cloudinary:
 
 Accepted video formats: `mp4`, `mkv`, `avi`, `webm`.
 
-All local storage paths are validated against the base directory to prevent path traversal attacks.
-
 ## Architecture decisions
+
+**Video upload without touching the server** — video goes directly from the browser to Cloudinary. The backend generates a SHA-1 signature using the `api_secret` and returns the parameters to the frontend. Cloudinary validates the signature and stores the file. The Render server never receives the binary, eliminating OOM risk and upload timeouts.
 
 **`@Formula` for episode count** — instead of loading the full episode collection to count it (`getEpisodes().size()`), a `@Formula` field runs a SQL subquery directly. This eliminates the N+1 query problem in anime listings.
 
 **`VideoStatusUpdater` separated from `VideoService`** — `@Async` and `@Transactional` on the same bean do not work correctly because internal calls (`this.method()`) bypass the Spring proxy. Separating into distinct beans ensures the transaction is opened correctly after async video processing completes.
 
 **Streaming without buffering** — `VideoService` streams video via `InputStream.transferTo()` directly into the response `OutputStream`, without loading the entire file into memory. Supports files of any size.
+
+**JOIN FETCH to avoid LazyInitializationException** — `EpisodeRepository.findByIdWithAnime()` and `WatchHistoryRepository.findByUserIdWithEpisodeAndAnime()` load associations in a single query, preventing errors when accessing `episode.getAnime().getTitle()` outside an active JPA session.
 
 ## Running tests
 
