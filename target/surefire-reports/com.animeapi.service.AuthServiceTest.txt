@@ -1,0 +1,394 @@
+-------------------------------------------------------------------------------
+Test set: com.animeapi.service.AuthServiceTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.131 s <<< FAILURE! -- in com.animeapi.service.AuthServiceTest
+com.animeapi.service.AuthServiceTest.getCurrentUser_ShouldReturnUser_WhenExists -- Time elapsed: 0.118 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'authService' of type 'class com.animeapi.service.AuthService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+	at com.animeapi.service.AuthService.<init>(AuthService.java:25)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AuthServiceTest.register_ShouldThrow_WhenEmailAlreadyExists -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'authService' of type 'class com.animeapi.service.AuthService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+	at com.animeapi.service.AuthService.<init>(AuthService.java:25)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AuthServiceTest.login_ShouldReturnToken_WhenValidCredentials -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'authService' of type 'class com.animeapi.service.AuthService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+	at com.animeapi.service.AuthService.<init>(AuthService.java:25)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AuthServiceTest.register_ShouldReturnToken_WhenValidRequest -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'authService' of type 'class com.animeapi.service.AuthService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+	at com.animeapi.service.AuthService.<init>(AuthService.java:25)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AuthServiceTest.register_ShouldThrow_WhenUsernameAlreadyExists -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'authService' of type 'class com.animeapi.service.AuthService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field userRepository may not have been initialized
+	The blank final field passwordEncoder may not have been initialized
+	The blank final field jwtService may not have been initialized
+	The blank final field authenticationManager may not have been initialized
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method builder() is undefined for the type User
+	The method getUsername() is undefined for the type RegisterRequest
+	The method getEmail() is undefined for the type RegisterRequest
+	The method getPassword() is undefined for the type RegisterRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+	The method getUsername() is undefined for the type LoginRequest
+	The method getPassword() is undefined for the type LoginRequest
+	log cannot be resolved
+	The method getRole() is undefined for the type User
+
+	at com.animeapi.service.AuthService.<init>(AuthService.java:25)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+

@@ -85,7 +85,7 @@ author = 48223061
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "mvn dependency:go-offline"
+args = "mvn test"
 
 [[ports]]
 localPort = 8080

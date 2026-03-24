@@ -1,0 +1,1264 @@
+-------------------------------------------------------------------------------
+Test set: com.animeapi.service.AnimeServiceTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 0, Errors: 9, Skipped: 0, Time elapsed: 0.221 s <<< FAILURE! -- in com.animeapi.service.AnimeServiceTest
+com.animeapi.service.AnimeServiceTest.findById_ShouldThrow_WhenNotFound -- Time elapsed: 0.181 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.update_ShouldThrow_WhenNotFound -- Time elapsed: 0.003 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.findAll_ShouldReturnPage -- Time elapsed: 0.003 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.findById_ShouldReturnAnime_WhenExists -- Time elapsed: 0.004 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.findAllGenres_ShouldReturnList -- Time elapsed: 0.003 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.delete_ShouldDelete_WhenExists -- Time elapsed: 0.003 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.create_ShouldSaveAndReturnAnime -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.delete_ShouldThrow_WhenNotFound -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.AnimeServiceTest.update_ShouldUpdateAndReturnAnime -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'animeService' of type 'class com.animeapi.service.AnimeService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field animeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method builder() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getTitle() is undefined for the type AnimeRequest
+	The method getOriginalTitle() is undefined for the type AnimeRequest
+	The method getSynopsis() is undefined for the type AnimeRequest
+	The method getGenre() is undefined for the type AnimeRequest
+	The method getStudio() is undefined for the type AnimeRequest
+	The method getReleaseYear() is undefined for the type AnimeRequest
+	The method getRating() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	The method getStatus() is undefined for the type AnimeRequest
+	log cannot be resolved
+	The method getTitle() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method setBannerImageUrl(String) is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method setCoverImageUrl(String) is undefined for the type Anime
+	log cannot be resolved
+	log cannot be resolved
+	The method getId() is undefined for the type Anime
+	The method getTitle() is undefined for the type Anime
+	The method getOriginalTitle() is undefined for the type Anime
+	The method getSynopsis() is undefined for the type Anime
+	The method getGenre() is undefined for the type Anime
+	The method getStudio() is undefined for the type Anime
+	The method getReleaseYear() is undefined for the type Anime
+	The method getStatus() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getCoverImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getBannerImageUrl() is undefined for the type Anime
+	The method getRating() is undefined for the type Anime
+	The method getEpisodeCount() is undefined for the type Anime
+	The method getCreatedAt() is undefined for the type Anime
+	The method getUpdatedAt() is undefined for the type Anime
+
+	at com.animeapi.service.AnimeService.<init>(AnimeService.java:27)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+

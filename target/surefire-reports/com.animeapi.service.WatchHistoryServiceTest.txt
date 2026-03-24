@@ -1,0 +1,380 @@
+-------------------------------------------------------------------------------
+Test set: com.animeapi.service.WatchHistoryServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.054 s <<< FAILURE! -- in com.animeapi.service.WatchHistoryServiceTest
+com.animeapi.service.WatchHistoryServiceTest.saveProgress_ShouldUpdateExistingHistory_WhenExists -- Time elapsed: 0.047 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'watchHistoryService' of type 'class com.animeapi.service.WatchHistoryService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+	at com.animeapi.service.WatchHistoryService.<init>(WatchHistoryService.java:24)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.WatchHistoryServiceTest.saveProgress_ShouldThrow_WhenEpisodeNotFound -- Time elapsed: 0.002 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'watchHistoryService' of type 'class com.animeapi.service.WatchHistoryService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+	at com.animeapi.service.WatchHistoryService.<init>(WatchHistoryService.java:24)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.WatchHistoryServiceTest.saveProgress_ShouldCreateNewHistory_WhenNotExists -- Time elapsed: 0.001 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'watchHistoryService' of type 'class com.animeapi.service.WatchHistoryService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+	at com.animeapi.service.WatchHistoryService.<init>(WatchHistoryService.java:24)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
+com.animeapi.service.WatchHistoryServiceTest.getHistory_ShouldReturnPagedHistory -- Time elapsed: 0.001 s <<< ERROR!
+org.mockito.exceptions.misusing.InjectMocksException: 
+
+Cannot instantiate @InjectMocks field named 'watchHistoryService' of type 'class com.animeapi.service.WatchHistoryService'.
+You haven't provided the instance at field declaration so I tried to construct the instance.
+However the constructor or the initialization block threw an exception : Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:159)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: java.lang.NullPointerException: Cannot invoke "java.util.Set.forEach(java.util.function.Consumer)" because the return value of "org.junit.jupiter.api.extension.ExtensionContext$Store.remove(Object, java.lang.Class)" is null
+		at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:190)
+		... 2 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The blank final field watchHistoryRepository may not have been initialized
+	The blank final field episodeRepository may not have been initialized
+	The blank final field storageService may not have been initialized
+	The method getEpisodeId() is undefined for the type WatchProgressRequest
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type Episode
+	The method builder() is undefined for the type WatchHistory
+	The method getProgressSeconds() is undefined for the type WatchProgressRequest
+	The method isCompleted() is undefined for the type WatchProgressRequest
+	The method setWatchedAt(LocalDateTime) is undefined for the type WatchHistory
+	The method getId() is undefined for the type Episode
+	log cannot be resolved
+	The method getId() is undefined for the type Episode
+	The method getId() is undefined for the type User
+	The method getId() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method getEpisode() is undefined for the type WatchHistory
+	The method setAnimeCoverImageUrl(((rawCoverUrl != null) ? storageService.getUrl(rawCoverUrl) : null)) is undefined for the type WatchHistoryResponse
+	The method getProgressSeconds() is undefined for the type WatchHistory
+	The method isCompleted() is undefined for the type WatchHistory
+	The method getWatchedAt() is undefined for the type WatchHistory
+
+	at com.animeapi.service.WatchHistoryService.<init>(WatchHistoryService.java:24)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$mTOQuAom.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	... 3 more
+
